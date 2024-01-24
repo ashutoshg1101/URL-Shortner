@@ -11,7 +11,7 @@ connectToMonogoDB();
 
 app.use(cors({
     origin: "https://short-url-lt4w.onrender.com",
-
+    methods: ["GET","POST"]
 }));
 app.use(express.json());
 app.use("/",urlRoute);
