@@ -18,7 +18,7 @@ function App() {
       url: `${originalUrl}`
     }
     try {
-      const response = await axios.post('http://localhost:8000/url', body);
+      const response = await axios.post('https://url-shortner-2kee.onrender.com/url', body);
       setShortedUrl(response.data.shortURL);
       console.log(response);
       setCopySuccess('');
@@ -53,12 +53,13 @@ function App() {
     </form>
 
     <div>
-      <form>
+      {/* <form> */}
         <label>
           Generated URL<br/>
         <textarea
           ref={textAreaRef}
           value={shortedUrl}
+          readOnly
         />
         {
         /* Logical shortcut for only displaying the 
@@ -70,7 +71,7 @@ function App() {
           </div>
         }
         </label>
-      </form>
+      {/* </form> */}
     </div>
     </>
   );
