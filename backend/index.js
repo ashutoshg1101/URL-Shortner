@@ -10,9 +10,9 @@ const port = 8000;
 connectToMonogoDB();
 
 app.use(cors({
-    origin: "https://short-url-lt4w.onrender.com",
-    methods: ["GET","POST"]
-}));
+    origin: ["https://short-url-lt4w.onrender.com","http://localhost:3000"],
+    optionsSuccessStatus: 200 // For legacy browser support
+    }));
 app.use(express.json());
 app.use("/",urlRoute);
 
