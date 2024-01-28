@@ -5,6 +5,59 @@
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
+
+      h1 {
+        color: #333;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input {
+        width: 80%;
+        padding: 8px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      a button {
+        text-decoration: none;
+        color: white;
+        background-color: #333;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+      }
+
     </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,9 +66,9 @@
   </head>
   <body>
     <h1>URL Shortener</h1>
-    <!-- <% if (locals.id) { %>
-    <p>URL Generated: http://localhost:8000/url/<%= id %></p>
-    <% } %> -->
+    <% if (locals.name) { %>
+      <h3>User Name : <%= name %></h3>
+    <% } %>
 
     <div>
       <form method="POST" action="/url">
@@ -29,17 +82,17 @@
       <table>
         <thead>
           <th>S. No</th>
-          <th>ShortID</th>
-          <th>Redirect</th>
+          <th>Short URL</th>
           <th>Clicks</th>
+          <th>Redirect</th>
         </thead>
         <tbody>
           <% urls.forEach((url, index) => { %>
           <tr>
             <td><%= index + 1 %></td>
             <td>https://url-shortner-2kee.onrender.com/<%= url.shortID %></td>
-            <td><%= url.redirectURL %></td>
             <td><%= url.visitHistory.length %></td>
+            <td><%= url.redirectURL %></td>
           </tr>
           <% }) %>
         </tbody>
