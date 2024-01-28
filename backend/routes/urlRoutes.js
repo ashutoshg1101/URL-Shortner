@@ -3,8 +3,8 @@ const {handleCreateShortID , handleRedirection ,handleGetvisitLog} = require("..
 const router = express.Router();
 
 router
-    .post("/url",handleCreateShortID)
+    .post("/",handleCreateShortID)
     .get("/:id",handleRedirection)
-    .get("/url/log/:id",handleGetvisitLog);
+    .get("/log/:id",handleGetvisitLog);
 
 module.exports = router;

@@ -1,26 +1,40 @@
 const express = require("express");
 const connectToMonogoDB = require("./connection");
 const urlRoute = require("./routes/urlRoutes");
+const userRoute = require("./routes/uesrRoutes")
+const staticRouter = require("./routes/staticRouter");
+const path = require("path");
 const URL = require("./models/url");
 const cors = require('cors')
+const cookieParser = require("cookie-parser")
+const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
+
 
 const app = express();
-const port = 8000;
+const PORT = 8000;
+
 
 connectToMonogoDB();
 
-// app.use(cors({
-//     origin: ["https://short-url-lt4w.onrender.com","http://localhost:3000"],
-//     optionsSuccessStatus: 200 // For legacy browser support
-//     }));
-app
-.use(function(req, res, next){
+
+app.set('view engine', 'ejs');
+app.set("views", path.resolve("./views"));
+
+
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With');
     next();
 })
-
 app.use(express.json());
-app.use("/",urlRoute);
+app.use("/url",restrictToLoggedinUserOnly,urlRoute);
+app.use("/user",userRoute);
+app.use("/",checkAuth,staticRouter);
 
-app.listen(port,() => console.log(`server started on port = ${port}`))
+
+
+app.listen(PORT,() => console.log(`server started on port = ${PORT}`))

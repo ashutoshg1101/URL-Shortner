@@ -12,11 +12,10 @@ async function handleCreateShortID(req, res) {
     shortID: nanoID,
     redirectURL: url,
     visitHistory: [],
+    createdBy: req.user._id,
   });
 
-  // await newURL.save;
-  const shortURL = "http://localhost:8000/"+nanoID;
-  return res.json({ id: nanoID , shortURL: shortURL });
+  return res.redirect("/");
 }
 
 async function handleRedirection(req,res){
