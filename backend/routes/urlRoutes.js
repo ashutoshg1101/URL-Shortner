@@ -4,7 +4,6 @@ const router = express.Router();
 
 router
     .post("/",handleCreateShortID)
-    .get("/:id",handleRedirection)
     .get("/log/:id",handleGetvisitLog);
 
 module.exports = router;

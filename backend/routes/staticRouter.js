@@ -1,6 +1,6 @@
 const express = require("express");
 const URL = require("../models/url");
-
+const {handleRedirection} = require("../controllers/url")
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -18,5 +18,7 @@ router.get("/signup", (req, res) => {
 router.get("/login", (req, res) => {
   return res.render("login");
 });
+
+router.get("/:id",handleRedirection)
 
 module.exports = router;

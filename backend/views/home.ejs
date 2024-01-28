@@ -13,9 +13,9 @@
   </head>
   <body>
     <h1>URL Shortener</h1>
-    <% if (locals.id) { %>
+    <!-- <% if (locals.id) { %>
     <p>URL Generated: http://localhost:8000/url/<%= id %></p>
-    <% } %>
+    <% } %> -->
 
     <div>
       <form method="POST" action="/url">
@@ -37,7 +37,7 @@
           <% urls.forEach((url, index) => { %>
           <tr>
             <td><%= index + 1 %></td>
-            <td>https://url-shortner-2kee.onrender.com/url/<%= url.shortID %></td>
+            <td>https://url-shortner-2kee.onrender.com/<%= url.shortID %></td>
             <td><%= url.redirectURL %></td>
             <td><%= url.visitHistory.length %></td>
           </tr>
