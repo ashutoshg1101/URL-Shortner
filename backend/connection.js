@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 async function connectToMonogoDB() {
-  const mongourl = process.env.mongoURL;
+  const mongourl = process.env.MONGODB_URI;
   mongoose
     .connect(mongourl)
     .then(() => {
