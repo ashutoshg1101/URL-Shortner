@@ -1,4 +1,6 @@
 const express = require("express");
+const dotenv = require('dotenv');
+dotenv.config();
 const connectToMonogoDB = require("./connection");
 const urlRoute = require("./routes/urlRoutes");
 const userRoute = require("./routes/uesrRoutes")
@@ -11,7 +13,7 @@ const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
 
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 
 connectToMonogoDB();
