@@ -5,8 +5,7 @@ async function handleCreateShortID(req, res) {
   const {url} = req.body;
   if (!url) return res.status(400).json({ error: "url is required" });
   const nanoID = nanoid(10);
-  console.log(typeof nanoID);
-  console.log(url);
+
 
   await URL.create({
     shortID: nanoID,
