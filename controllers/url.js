@@ -47,8 +47,15 @@ async function handleGetvisitLog(req,res){
   })
 }
 
+async function handleDeleteURL(req,res){
+  let shortID = req.body.shortID;
+  await URL.deleteOne({shortID});
+  res.redirect("/");
+}
+
 module.exports = {
     handleCreateShortID,
     handleRedirection,
-    handleGetvisitLog
+    handleGetvisitLog,
+    handleDeleteURL
 }

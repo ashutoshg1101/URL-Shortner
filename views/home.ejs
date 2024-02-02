@@ -10,6 +10,11 @@
         color: #333;
       }
 
+      h3 {
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+
       form {
         margin-top: 20px;
       }
@@ -49,7 +54,7 @@
         color: white;
       }
 
-      a button {
+      button.copy {
         text-decoration: none;
         color: white;
         background-color: #333;
@@ -57,7 +62,17 @@
         border: none;
         cursor: pointer;
       }
-
+      
+      a > button {
+        text-decoration: none;
+        color: white;
+        background-color: #333;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 20px;
+      }
     </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -73,7 +88,7 @@
     <div>
       <form method="POST" action="/url">
         <label>Enter Your Original URL</label>
-        <input type="text" name="url" placeholder="https://example.com" />
+        <input type="text" name="url" placeholder="https://example.com" />      
         <button type="submit">Generate</button>
       </form>
     </div>
@@ -83,6 +98,8 @@
         <thead>
           <th>S. No</th>
           <th>Short URL</th>
+          <th></th>
+          <th></th>
           <th>Clicks</th>
           <th>Redirect</th>
         </thead>
@@ -90,7 +107,16 @@
           <% urls.forEach((url, index) => { %>
           <tr>
             <td><%= index + 1 %></td>
-            <td>https://url-shortner-2kee.onrender.com/<%= url.shortID %></td>
+            <td id="<%= index + 1 %>url">https://url-shortner-2kee.onrender.com/<%= url.shortID %></td>
+            <td>
+              <button class="<%= index + 1 %>" onclick="copyToClipboard(this.className)">copy</button>
+            </td>
+            <td>
+              <form action="/url/delete" method="post" >
+                <input type="hidden" name="shortID" value="<%= url.shortID %>">
+                <button type="submit">delete</button>
+              </form>
+            </td>
             <td><%= url.visitHistory.length %></td>
             <td><%= url.redirectURL %></td>
           </tr>
@@ -101,4 +127,12 @@
     </div>
     <a href="/user/logout"><button>logout</button></a>
   </body>
+  <script>
+    function copyToClipboard(className)
+    {
+      var copyText = document.getElementById(className+"url");
+      navigator.clipboard.writeText(copyText.innerText);
+      alert("short url copied to clipboard");
+    }
+  </script>
 </html>
