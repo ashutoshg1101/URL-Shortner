@@ -14,6 +14,7 @@ async function handleUserSignup(req , res){
         email,
         password
     })
+    res.clearCookie("uid");
     return res.redirect("/");
 };
 

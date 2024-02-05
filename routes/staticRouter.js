@@ -8,7 +8,8 @@ router.get("/", async (req, res) => {
   const allurls = await URL.find({ createdBy: req.user._id });
   return res.render("home", {
     urls: allurls,
-    name: req.user.name
+    name: req.user.name,
+    urlExist: false
   });
 });
 

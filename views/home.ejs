@@ -73,6 +73,14 @@
         display: inline-block;
         margin-top: 20px;
       }
+
+      #urlExist{
+        color: red;
+      }
+      .customURL{
+        display: inline-block;
+      }
+
     </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -88,7 +96,18 @@
     <div>
       <form method="POST" action="/url">
         <label>Enter Your Original URL</label>
-        <input type="text" name="url" placeholder="https://example.com" />      
+        <input type="text" name="url" placeholder="https://example.com" />
+        <label for="customUrlCheckbox">
+          <div class="customURL">
+            Generate Custom URL
+            <input type="checkbox" id="customUrlCheckbox" name="customUrlCheckbox" value="unchecked">
+          </div>
+        </label>
+        <div id="customURL">
+        </div>    
+        <% if(locals.urlExist == true) { %>
+          <h3 color=red id="urlExist">URL you entered is already exist </h3> 
+        <% } %>  
         <button type="submit">Generate</button>
       </form>
     </div>
@@ -128,6 +147,23 @@
     <a href="/user/logout"><button>logout</button></a>
   </body>
   <script>
+
+    const checkbox = document.getElementById('customUrlCheckbox')
+    checkbox.addEventListener('change', (event) => {
+      if (event.currentTarget.checked) {
+        const customURL = document.getElementById("customURL");
+        const input = document.createElement("input");
+        input.setAttribute("type","text");
+        input.setAttribute("name","customURL");
+        input.setAttribute("placeholder","enter here custom URL");
+        input.setAttribute("id","customURLInputField");
+        customURL.appendChild(input)
+      } else {
+        let customURLInputField = document.getElementById("customURLInputField");
+        customURLInputField.remove();
+      }
+    })
+
     function copyToClipboard(className)
     {
       var copyText = document.getElementById(className+"url");

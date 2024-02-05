@@ -3,10 +3,31 @@ const URL = require("../models/url");
 
 async function handleCreateShortID(req, res) {
   const {url} = req.body;
+  const {customURL} = req.body;
   if (!url) return res.status(400).json({ error: "url is required" });
-  const nanoID = nanoid(10);
-
-
+  var nanoID = nanoid(10);
+  if(customURL != "" && customURL != undefined && customURL != null)
+  {
+    let checkCustomUrl = await URL.findOne({shortID : customURL});
+    console.log(checkCustomUrl);
+    if(checkCustomUrl == null || checkCustomUrl == undefined)
+    {
+      nanoID = customURL;
+    }
+    else
+    {
+      console.log("hello");
+      const allurls = await URL.find({ createdBy: req.user._id });
+      return res.render("home", {
+        urls: allurls,
+        name: req.user.name,
+        urlExist: true
+      });
+      console.log("hello2");
+      // return res.redirect("/");
+    }
+  }
+  console.log("hello3");
   await URL.create({
     shortID: nanoID,
     redirectURL: url,
