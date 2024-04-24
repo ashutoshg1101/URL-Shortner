@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   return res.render("home", {
     urls: allurls,
     name: req.user.name,
-    urlExist: false
+    urlExist: false,
   });
 });
 

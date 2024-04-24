@@ -4,6 +4,8 @@
     <style>
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
       }
 
       h1 {
@@ -32,10 +34,12 @@
       button {
         background-color: #4caf50;
         color: white;
+        border-radius: 10px;
         padding: 10px 15px;
         border: none;
         cursor: pointer;
       }
+
 
       table {
         width: 100%;
@@ -53,22 +57,13 @@
         background-color: #4caf50;
         color: white;
       }
-
-      button.copy {
-        text-decoration: none;
-        color: white;
-        background-color: #333;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-      }
       
       a > button {
         text-decoration: none;
         color: white;
         background-color: #333;
         padding: 10px 15px;
-        border: none;
+        border-radius: 10px;
         cursor: pointer;
         display: inline-block;
         margin-top: 20px;
@@ -77,8 +72,38 @@
       #urlExist{
         color: red;
       }
+
       .customURL{
-        display: inline-block;
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 10px;
+      }
+      #customUrlCheckbox{
+        height: auto;
+        width: 40px;
+        padding: 10px;
+        margin: 0;
+      }
+
+      .deleteButton :hover{
+        cursor: pointer;
+      }
+
+
+      .Navbar{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .UserProfile{
+        display: flex;
+        align-items: center;
+      }
+      .UserProfileImage
+      {
+        height: 60px;
+        width: 60px;
+        padding-right: 10px;
       }
 
     </style>
@@ -88,10 +113,16 @@
     <title>Home Page</title>
   </head>
   <body>
-    <h1>URL Shortener</h1>
-    <% if (locals.name) { %>
-      <h3>User Name : <%= name %></h3>
-    <% } %>
+    <div class="Navbar">
+      <h1>URL Shortener</h1>
+    </div>
+
+    <div class="UserProfile">
+      <img class="UserProfileImage" src="/profile-user.png" alt="">
+      <% if (locals.name) { %>
+        <h3>:  <%= name %></h3>
+      <% } %>
+    </div>
 
     <div>
       <form method="POST" action="/url">
@@ -128,12 +159,13 @@
             <td><%= index + 1 %></td>
             <td id="<%= index + 1 %>url">https://url-shortner-2kee.onrender.com/<%= url.shortID %></td>
             <td>
-              <button class="<%= index + 1 %>" onclick="copyToClipboard(this.className)">copy</button>
+              <img height="20px" width="20px" src="/copy.png" class="<%= index + 1 %>" onclick="copyToClipboard(this.className)">
             </td>
             <td>
               <form action="/url/delete" method="post" >
                 <input type="hidden" name="shortID" value="<%= url.shortID %>">
-                <button type="submit">delete</button>
+                <input class="deleteButton" height="20px" width="20px" type="image" src="/delete.png" alt="loading"/>
+                <!-- <button type="submit">delete</button> -->
               </form>
             </td>
             <td><%= url.visitHistory.length %></td>
